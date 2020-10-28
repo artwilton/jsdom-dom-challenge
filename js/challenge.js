@@ -22,18 +22,29 @@ function enableBtn() {
     });
 } 
 
-function liker() {
-    const likeUl = document.querySelector(".likes")
-    const newLi = document.createElement('li')
-    likeCounter++
-    newLi.innerText = `${counter.innerText} has ${likeCounter} likes!`
-    likeUl.append(newLi)
+// if the latest list element in the ul doesn't start with the current counter number:
+// 	append a list element with the current counter number
 
+// else if the latest list element in the ul starts with the current counter number:
+// 	set that latest index value to an li with the current counter number
+
+const likeUl = document.querySelector(".likes")
+
+function liker() {
     
-    if (newLi.startsWith(counter.innerText)) {
-        console.log("true")
-    }
+    likeCounter++
+    const latestLi = likeUl.children[likeUl.children.length - 1]
+    const newLi = document.createElement('li')
+    newLi.innerText = `${counter.innerText} has ${likeCounter} likes!`
     
+    if (!!latestLi === false) {
+        likeUl.append(newLi)
+    } else if (!!latestLi.textContent.startsWith(counter.innerText)) {
+        latestLi.textContent = newLi.textContent
+    } else {
+        likeUl.append(newLi)
+    } 
+       
 }
 
 function incrementCounter() {
