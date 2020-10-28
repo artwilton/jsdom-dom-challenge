@@ -3,7 +3,24 @@ const minus = document.getElementById("minus")
 const plus = document.getElementById("plus")
 const heart = document.getElementById("heart")
 const pause = document.getElementById("pause")
+
+const submitForm = document.getElementById("comment-form")
+
 let likeCounter = 0
+
+function disableBtn() {  
+    allButtonsExceptPause = document.querySelectorAll("button:not(#pause)")
+    allButtonsExceptPause.forEach(button => {
+        button.disabled = true;
+    });
+}
+
+function enableBtn() {
+    allButtonsExceptPause = document.querySelectorAll("button:not(#pause)")
+    allButtonsExceptPause.forEach(button => {
+        button.disabled = false;
+    });
+} 
 
 function liker() {
     const likeUl = document.querySelector(".likes")
@@ -13,10 +30,10 @@ function liker() {
     likeUl.append(newLi)
 
     
-    // if (newLi.startsWith(counter.innerText)) {
-
-    // }
-    //
+    if (newLi.startsWith(counter.innerText)) {
+        console.log("true")
+    }
+    
 }
 
 function incrementCounter() {
@@ -37,11 +54,32 @@ document.body.addEventListener('click', function(event) {
     } else if (event.target.matches("#heart")) {
         liker()
     } else if (event.target.matches("#pause")) {
-        // do something
+        if (pause.innerText === "pause") {
+            clearInterval(startingInterval)
+            disableBtn()
+            pause.innerText = "resume"
+        } else if (pause.innerText === "resume") {
+            setInterval(startingInterval)
+            enableBtn()
+            pause.innerText = "pause"
+            startingInterval = setInterval(function() {
+                incrementCounter();
+                likeCounter = 0
+                }, 1000);
+        }
     }
 })
 
-setInterval(function() {
+submitForm.addEventListener('submit', function(event) {
+    event.preventDefault()
+    const comment = document.createElement('p')
+    comment.innerText = event.target.comment.value
+    console.log(comment)
+    document.querySelector('.comments').append(comment)
+    // id list   class comments
+})
+
+let startingInterval = setInterval(function() {
     incrementCounter();
     likeCounter = 0
     }, 1000);
