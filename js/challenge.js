@@ -22,12 +22,6 @@ function enableBtn() {
     });
 } 
 
-// if the latest list element in the ul doesn't start with the current counter number:
-// 	append a list element with the current counter number
-
-// else if the latest list element in the ul starts with the current counter number:
-// 	set that latest index value to an li with the current counter number
-
 const likeUl = document.querySelector(".likes")
 
 function liker() {
@@ -87,7 +81,6 @@ submitForm.addEventListener('submit', function(event) {
     comment.innerText = event.target.comment.value
     console.log(comment)
     document.querySelector('.comments').append(comment)
-    // id list   class comments
 })
 
 let startingInterval = setInterval(function() {
